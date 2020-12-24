@@ -13,11 +13,7 @@ module.exports = {
             .offset((page - 1) * 5)
             .select([
                 'incidents.*',
-                'ongs.name',
-                'ongs.email',
-                'ongs.whatsapp',
-                'ongs.city',
-                'ongs.uf'
+                'ongs.*'
             ]);
         response.header('X-Total-Count', count['count(*)']);
         
@@ -28,7 +24,7 @@ module.exports = {
         const { title, description, value } = request.body;
         const ong_id = request.headers.authorization;
 
-        const[id] = await connection('incidents').insert({
+        const [id] = await connection('incidents').insert({
             title,
             description,
             value,
